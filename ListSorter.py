@@ -1,13 +1,19 @@
+import random
+import time
+
 def sort():
-    content = input('Enter in some numbers seperated bt commas: ')
-    numbers = content.split(',')
-    #print(numbers)
-    for num in range(len(numbers)):
-        numbers[num] = int(numbers[num])
+    starttime = time.time()
+    size = int(input('How big is the list: '))
+    RANGE = int(input('What will be the max value: '))
+    numbers = []
+    for i in range(0, size):
+        n = random.randint(1, RANGE)
+        numbers.append(n)
     for i in range(len(numbers)):
         for j in range(i + 1, len(numbers)):
             if numbers[i] > numbers[j]:
              numbers[i], numbers[j] = numbers[j], numbers[i]
     print(numbers)
+    print(time.time() - starttime)
 
 sort()
