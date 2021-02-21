@@ -2,18 +2,8 @@ import random
 from random import randint
 import time
 
-size = int(input('How big is the list: '))
-RANGE = int(input('What will be the max value: '))
-numbers = []
-switch = []
-for i in range(0, size):
-    n = random.randint(1, RANGE)
-    numbers.append(n)
-    switch.append(n)
-
 def bubblesort(array, switch):
     p = len(array)
-    starttime = time.time()
     k = 1
     for i in range(p - k):
         for j in range(i + 1, p):
@@ -25,12 +15,8 @@ def bubblesort(array, switch):
         else:
             switch = array.copy()
             continue   
-    endtime = time.time() - starttime
-    print(array)
-    print(endtime)
-
+    return
 def quicksort(array):
-    starttime = time.time()
     if len(array) <= 1:
         return array
 
@@ -49,8 +35,27 @@ def quicksort(array):
     leftside = quicksort(left)
     rightside = quicksort(right)
     finallist = leftside + equal + rightside 
-    endtime = time.time() - starttime
     return finallist
 
-print(quicksort(numbers))
+size = int(input('How big is the list: '))
+RANGE = int(input('What will be the max value: '))
+numbers = []
+switch = []
+for i in range(0, size):
+    n = random.randint(1, RANGE)
+    numbers.append(n)
+    switch.append(n)
+
+def testAscending(nums):
+    status = False
+    if all(nums[i] <= nums[i+1] for i in range(len(nums)-1)):
+        status = True
+    return status
+
+starttime = time.time()  
+# bubblesort(numbers, switch)
+NewList = quicksort(numbers)
+endtime = time.time() - starttime
+print("List sorted: " + str(testAscending(NewList)))
+print(endtime)
 
