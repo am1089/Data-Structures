@@ -1,21 +1,22 @@
 import random
 from random import randint
 import time
+import matplotlib.pyplot as plt
 
-def bubblesort(array, switch):
+def bubblesort(array):
+    swap = False
     p = len(array)
     k = 1
     for i in range(p - k):
         for j in range(i + 1, p):
             if array[i] > array[j]:
                 array[i], array[j] = array[j], array[i]
+                swap = True
                 k += 1
-        if switch == array:
+        if swap == False:
             break
-        else:
-            switch = array.copy()
-            continue   
-    return
+    return array
+
 def quicksort(array):
     if len(array) <= 1:
         return array
@@ -37,25 +38,58 @@ def quicksort(array):
     finallist = leftside + equal + rightside 
     return finallist
 
-size = int(input('How big is the list: '))
-RANGE = int(input('What will be the max value: '))
-numbers = []
-switch = []
-for i in range(0, size):
-    n = random.randint(1, RANGE)
-    numbers.append(n)
-    switch.append(n)
-
 def testAscending(nums):
     status = False
     if all(nums[i] <= nums[i+1] for i in range(len(nums)-1)):
         status = True
     return status
 
-starttime = time.time()  
-# bubblesort(numbers, switch)
-NewList = quicksort(numbers)
-endtime = time.time() - starttime
-print("List sorted: " + str(testAscending(NewList)))
-print(endtime)
+x1 = []
+y1 = []
+x2 = []
+y2 = []
 
+for index in range(1, 6):
+    size = 10**index
+    maxval = 10**9
+    numbers = []
+    for i in range(0, size):
+        n = random.randint(1, maxval)
+        numbers.append(n)
+        
+    starttime = time.time()  
+    NewList = quicksort(numbers)
+    endtime = time.time() - starttime
+    print("QSort List sorted: " + str(testAscending(NewList)))
+    print(endtime)
+    x1.append(size)
+    y1.append(endtime)
+
+    starttime = time.time()
+    NewList = bubblesort(numbers)
+    endtime = time.time() - starttime
+    print("BSort List sorted: " + str(testAscending(NewList)))
+    print(endtime)
+    x2.append(size)
+    y2.append(endtime)
+
+# plotting the line 1 points
+plt.plot(x1, y1, label = "Quick Sort")
+# plotting the line 2 points
+plt.plot(x2, y2, label = "Bubble Sort")
+
+# naming the x axis
+plt.xlabel('Array Size')
+# naming the y axis
+plt.ylabel('Sort Time')
+# giving a title to my graph
+plt.title('Compare Sort Time')
+# show a legend on the plot
+plt.legend()
+  
+# set graph scale
+plt.xscale('log')
+plt.yscale('log')
+
+# function to show the plot
+plt.show()
