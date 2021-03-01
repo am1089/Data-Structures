@@ -46,10 +46,9 @@ def testAscending(nums):
 
 x1 = []
 y1 = []
-x2 = []
 y2 = []
 
-for index in range(1, 6):
+for index in range(3, 7):
     size = 10**index
     maxval = 10**9
     numbers = []
@@ -61,7 +60,7 @@ for index in range(1, 6):
     NewList = quicksort(numbers)
     endtime = time.time() - starttime
     print("QSort List sorted: " + str(testAscending(NewList)))
-    print(endtime)
+    print("%.6f"%endtime)
     x1.append(size)
     y1.append(endtime)
 
@@ -69,14 +68,17 @@ for index in range(1, 6):
     NewList = bubblesort(numbers)
     endtime = time.time() - starttime
     print("BSort List sorted: " + str(testAscending(NewList)))
-    print(endtime)
-    x2.append(size)
+    print("%.6f"%endtime)
     y2.append(endtime)
+
+print("List sizes: " + str(x1))
+print("Quick Sort time: " + str(y1))
+print("Bubble Sort time: " + str(y2))
 
 # plotting the line 1 points
 plt.plot(x1, y1, label = "Quick Sort")
 # plotting the line 2 points
-plt.plot(x2, y2, label = "Bubble Sort")
+plt.plot(x1, y2, label = "Bubble Sort")
 
 # naming the x axis
 plt.xlabel('Array Size')
